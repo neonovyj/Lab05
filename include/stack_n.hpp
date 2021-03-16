@@ -3,19 +3,19 @@
 #define INCLUDE_STACK_N_HPP_
 
 #include <Elem.h>
+
 #include <iostream>
 #include <utility>
 //Задание2
 template <typename T>
-class stack_n
-{
+class stack_n {
  public:
   stack_n();
   stack_n(stack_n<T>& elem);
   stack_n(stack_n<T>&& elem);
   ~stack_n();
 
-  template <typename ... Args>
+  template <typename... Args>
   void push_emplace(Args&&... value);
   void push(T&& value);
   const T& head() const;
@@ -24,7 +24,8 @@ class stack_n
   [[nodiscard]] size_t size() const;
 
   auto operator=(stack_n<T>&& elem) -> stack_n<T>&;
-  auto operator =(stack_n<T> &Elem) -> stack_n<T>&;
+  auto operator=(stack_n<T>& Elem) -> stack_n<T>&;
+
  private:
   Elem<T>* headElem = nullptr;
 };
@@ -36,14 +37,14 @@ auto stack_n<T>::operator=(stack_n<T>&& elem) -> stack_n<T>& {
 }
 
 template <typename T>
-auto stack_n<T>::operator =(stack_n<T> &Elem) -> stack_n<T>&{
+auto stack_n<T>::operator=(stack_n<T>& Elem) -> stack_n<T>& {
   headElem = Elem.headElem;
   Elem.headElem = nullptr;
   return *this;
 }
 
 template <typename T>
-stack_n<T>::stack_n(){}
+stack_n<T>::stack_n() {}
 
 template <typename T>
 stack_n<T>::stack_n(stack_n<T>& elem) {
@@ -58,13 +59,12 @@ stack_n<T>::stack_n(stack_n<T>&& elem) {
 }
 
 template <typename T>
-stack_n<T>::~stack_n<T>(){
-  while (headElem != nullptr)
-    pop();
+stack_n<T>::~stack_n<T>() {
+  while (headElem != nullptr) pop();
 }
 
 template <typename T>
-template <typename ... Args>
+template <typename... Args>
 void stack_n<T>::push_emplace(Args&&... value) {
   if ((std::is_copy_assignable<T>::value) ||
       (std::is_copy_constructible<T>::value))
@@ -74,7 +74,8 @@ void stack_n<T>::push_emplace(Args&&... value) {
 
 template <typename T>
 void stack_n<T>::push(T&& value) {
-  if ((std::is_copy_assignable<T>::value) || //проверка на то, явл ли тип некопируемым
+  if ((std::is_copy_assignable<T>::value) ||  //проверка на то, явл ли тип
+                                              //некопируемым
       (std::is_copy_constructible<T>::value))
     throw std::bad_typeid();
   Elem<T>* link = headElem;
@@ -82,7 +83,7 @@ void stack_n<T>::push(T&& value) {
 }
 
 template <typename T>
-const  T& stack_n<T>::head() const {
+const T& stack_n<T>::head() const {
   if (empty()) {
     throw std::out_of_range("Stack is empty!");
   } else {
@@ -92,8 +93,7 @@ const  T& stack_n<T>::head() const {
 
 template <typename T>
 T stack_n<T>::pop() {
-  if (headElem == nullptr)
-    throw std::out_of_range("N = 0!");
+  if (headElem == nullptr) throw std::out_of_range("N = 0!");
   Elem<T>* link = headElem;
   headElem = headElem->previousElem;
   T elem = *link->elem;
@@ -104,8 +104,8 @@ T stack_n<T>::pop() {
 template <typename T>
 size_t stack_n<T>::size() const {
   size_t n = 0;
-  Elem<T> *link = headElem;
-  while (link != nullptr){
+  Elem<T>* link = headElem;
+  while (link != nullptr) {
     ++n;
     link = link->previousElem;
   }
@@ -118,4 +118,3 @@ bool stack_n<T>::empty() const {
 }
 
 #endif  // INCLUDE_STACK_N_HPP_
-
