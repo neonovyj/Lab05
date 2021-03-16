@@ -3,7 +3,7 @@
 #define INCLUDE_ELEM_HPP_
 
 template <typename T>
-struct Elem{
+struct Elem {
   T elem;
   Elem* previousElem = nullptr;
 };
