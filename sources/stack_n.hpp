@@ -118,3 +118,4 @@ bool stack_n<T>::empty() const {
 }
 
 #endif  // INCLUDE_STACK_N_HPP_
+
