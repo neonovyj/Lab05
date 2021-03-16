@@ -1,6 +1,6 @@
 // Copyright 2021 ivan <ikhonyak@gmail.com>
 #include <gtest/gtest.h>
-#include <stack_n.h>
+#include <stack_n.hpp>
 
 #include <moveStackNew.hpp>
 
