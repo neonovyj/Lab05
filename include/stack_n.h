@@ -1,4 +1,4 @@
-// Copyright 2020 ivan <ikhonyak@gmail.com>
+// Copyright 2021 ivan <ikhonyak@gmail.com>
 #ifndef INCLUDE_STACK_N_HPP_
 #define INCLUDE_STACK_N_HPP_
 
