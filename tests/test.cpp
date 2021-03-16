@@ -1,6 +1,5 @@
-// Copyright 2018 Your Name <your_email>
-
-#include <moveStackNew.h>
+// Copyright 2021 ivan <ikhonyak@gmail.com>
+#include <moveStackNew.hpp>
 #include <gtest/gtest.h>
 #include <stack_n.h>
 
