@@ -76,7 +76,7 @@ void FStack<T>::pop(){
   if (headElem == nullptr)
     throw std::out_of_range("N = 0!");
   StructElem<T>* link = headElem;
-  headElem = headElem->previousElem;
+  headElem = headElem->early_Elem;
   delete link;
 }
 
@@ -100,7 +100,7 @@ size_t FStack<T>::size() const {
   StructElem<T> *link = headElem;
   while (link != nullptr){
     ++n;
-    link = link->previousElem;
+    link = link->early_Elem;
   }
   return n;
 }

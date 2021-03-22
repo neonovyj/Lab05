@@ -5,7 +5,7 @@
 template <typename T>
 struct StructElem {
   T elem;
-  StructElem* previousElem = nullptr;
+  StructElem* early_Elem = nullptr;
 };
 
 #endif  // INCLUDE_ELEM_HPP_

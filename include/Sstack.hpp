@@ -25,19 +25,19 @@ class Sstack {
   auto operator=(Sstack<T>& Elem) -> Sstack<T>&;
 
  private:
-  StructElem<T>* headElem = nullptr;
+  StructElem<T>* head_Elem = nullptr;
 };
 
 template <typename T>
 auto Sstack<T>::operator=(Sstack<T>&& elem) -> Sstack<T>& {
-  headElem = std::forward<StructElem<T>>(elem.headElem);
+  head_Elem = std::forward<StructElem<T>>(elem.head_Elem);
   return *this;
 }
 
 template <typename T>
 auto Sstack<T>::operator=(Sstack<T>& Elem) -> Sstack<T>& {
-  headElem = Elem.headElem;
-  Elem.headElem = nullptr;
+  head_Elem = Elem.head_Elem;
+  Elem.head_Elem = nullptr;
   return *this;
 }
 
@@ -46,19 +46,19 @@ Sstack<T>::Sstack() {}
 
 template <typename T>
 Sstack<T>::Sstack(Sstack<T>& elem) {
-  headElem = std::move(elem.headElem);
-  elem.headElem = nullptr;
+  head_Elem = std::move(elem.head_Elem);
+  elem.head_Elem = nullptr;
 }
 
 template <typename T>
 Sstack<T>::Sstack(Sstack<T>&& elem) {
-  headElem = new StructElem<T>{std::forward<T>(elem.head()), elem};
-  elem.headElem = nullptr;
+  head_Elem = new StructElem<T>{std::forward<T>(elem.head()), elem};
+  elem.head_Elem = nullptr;
 }
 
 template <typename T>
 Sstack<T>::~Sstack<T>() {
-  while (headElem != nullptr) pop();
+  while (head_Elem != nullptr) pop();
 }
 
 template <typename T>
@@ -75,8 +75,8 @@ void Sstack<T>::push(T&& value) {
   if ((std::is_copy_assignable<T>::value) ||
       (std::is_copy_constructible<T>::value))
     throw std::bad_typeid();
-  StructElem<T>* link = headElem;
-  headElem = new StructElem<T>(std::forward<T>(value), link);
+  StructElem<T>* link = head_Elem;
+  head_Elem = new StructElem<T>(std::forward<T>(value), link);
 }
 
 template <typename T>
@@ -84,15 +84,15 @@ const T& Sstack<T>::head() const {
   if (empty()) {
     throw std::out_of_range("Stack is empty!");
   } else {
-    return headElem->elem;
+    return head_Elem->elem;
   }
 }
 
 template <typename T>
 T Sstack<T>::pop() {
-  if (headElem == nullptr) throw std::out_of_range("N = 0!");
-  StructElem<T>* link = headElem;
-  headElem = headElem->previousElem;
+  if (head_Elem == nullptr) throw std::out_of_range("N = 0!");
+  StructElem<T>* link = head_Elem;
+  head_Elem = head_Elem->early_Elem;
   T elem = *link->elem;
   delete link;
   return elem;
@@ -101,17 +101,17 @@ T Sstack<T>::pop() {
 template <typename T>
 size_t Sstack<T>::size() const {
   size_t n = 0;
-  StructElem<T>* link = headElem;
+  StructElem<T>* link = head_Elem;
   while (link != nullptr) {
     ++n;
-    link = link->previousElem;
+    link = link->early_Elem;
   }
   return n;
 }
 
 template <typename T>
 bool Sstack<T>::empty() const {
-  return headElem == nullptr;
+  return head_Elem == nullptr;
 }
 
 #endif  // INCLUDE_SSTACK_HPP_"
