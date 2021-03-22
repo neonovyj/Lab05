@@ -1,6 +1,6 @@
 // Copyright 2021 ivan <ikhonyak@gmail.com>
-#ifndef INCLUDE_STACK_N_HPP_
-#define INCLUDE_STACK_N_HPP_
+#ifndef INCLUDE_SSTACK_HPP_
+#define INCLUDE_SSTACK_HPP_
 
 #include <StructElem.h>
 #include <iostream>
@@ -114,4 +114,4 @@ bool Sstack<T>::empty() const {
   return headElem == nullptr;
 }
 
-#endif  // INCLUDE_STACK_N_HPP_
+#endif  // INCLUDE_SSTACK_HPP_"

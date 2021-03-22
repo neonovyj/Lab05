@@ -1,6 +1,6 @@
 // Copyright 2021 ivan <ikhonyak@gmail.com>
-#ifndef INCLUDE_MOVESTACKNEW_HPP_
-#define INCLUDE_MOVESTACKNEW_HPP_
+#ifndef INCLUDE_FSTACK_HPP_
+#define INCLUDE_FSTACK_HPP_
 
 #include <StructElem.h>
 #include <iostream>
@@ -105,4 +105,4 @@ size_t FStack<T>::size() const {
   return n;
 }
 
-#endif  // INCLUDE_MOVESTACKNEW_HPP_
+#endif  // INCLUDE_FSTACK_HPP_"
