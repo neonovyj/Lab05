@@ -3,9 +3,9 @@
 #define INCLUDE_ELEM_HPP_
 
 template <typename T>
-struct Elem {
+struct StructElem {
   T elem;
-  Elem* previousElem = nullptr;
+  StructElem* previousElem = nullptr;
 };
 
 #endif  // INCLUDE_ELEM_HPP_

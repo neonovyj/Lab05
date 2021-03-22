@@ -2,18 +2,16 @@
 #ifndef INCLUDE_STACK_N_HPP_
 #define INCLUDE_STACK_N_HPP_
 
-#include <Elem.h>
-
+#include <StructElem.h>
 #include <iostream>
 #include <utility>
-//Задание2
 template <typename T>
-class stack_n {
+class Sstack {
  public:
-  stack_n();
-  stack_n(stack_n<T>& elem);
-  stack_n(stack_n<T>&& elem);
-  ~stack_n();
+  Sstack();
+  Sstack(Sstack<T>& elem);
+  Sstack(Sstack<T>&& elem);
+  ~Sstack();
 
   template <typename... Args>
   void push_emplace(Args&&... value);
@@ -23,49 +21,49 @@ class stack_n {
   [[nodiscard]] bool empty() const;
   [[nodiscard]] size_t size() const;
 
-  auto operator=(stack_n<T>&& elem) -> stack_n<T>&;
-  auto operator=(stack_n<T>& Elem) -> stack_n<T>&;
+  auto operator=(Sstack<T>&& elem) -> Sstack<T>&;
+  auto operator=(Sstack<T>& Elem) -> Sstack<T>&;
 
  private:
-  Elem<T>* headElem = nullptr;
+  StructElem<T>* headElem = nullptr;
 };
 
 template <typename T>
-auto stack_n<T>::operator=(stack_n<T>&& elem) -> stack_n<T>& {
-  headElem = std::forward<Elem<T>>(elem.headElem);
+auto Sstack<T>::operator=(Sstack<T>&& elem) -> Sstack<T>& {
+  headElem = std::forward<StructElem<T>>(elem.headElem);
   return *this;
 }
 
 template <typename T>
-auto stack_n<T>::operator=(stack_n<T>& Elem) -> stack_n<T>& {
+auto Sstack<T>::operator=(Sstack<T>& Elem) -> Sstack<T>& {
   headElem = Elem.headElem;
   Elem.headElem = nullptr;
   return *this;
 }
 
 template <typename T>
-stack_n<T>::stack_n() {}
+Sstack<T>::Sstack() {}
 
 template <typename T>
-stack_n<T>::stack_n(stack_n<T>& elem) {
+Sstack<T>::Sstack(Sstack<T>& elem) {
   headElem = std::move(elem.headElem);
   elem.headElem = nullptr;
 }
 
 template <typename T>
-stack_n<T>::stack_n(stack_n<T>&& elem) {
-  headElem = new Elem<T>{std::forward<T>(elem.head()), elem};
+Sstack<T>::Sstack(Sstack<T>&& elem) {
+  headElem = new StructElem<T>{std::forward<T>(elem.head()), elem};
   elem.headElem = nullptr;
 }
 
 template <typename T>
-stack_n<T>::~stack_n<T>() {
+Sstack<T>::~Sstack<T>() {
   while (headElem != nullptr) pop();
 }
 
 template <typename T>
 template <typename... Args>
-void stack_n<T>::push_emplace(Args&&... value) {
+void Sstack<T>::push_emplace(Args&&... value) {
   if ((std::is_copy_assignable<T>::value) ||
       (std::is_copy_constructible<T>::value))
     throw std::bad_typeid();
@@ -73,17 +71,16 @@ void stack_n<T>::push_emplace(Args&&... value) {
 }
 
 template <typename T>
-void stack_n<T>::push(T&& value) {
-  if ((std::is_copy_assignable<T>::value) ||  //проверка на то, явл ли тип
-                                              //некопируемым
+void Sstack<T>::push(T&& value) {
+  if ((std::is_copy_assignable<T>::value) ||
       (std::is_copy_constructible<T>::value))
     throw std::bad_typeid();
-  Elem<T>* link = headElem;
-  headElem = new Elem<T>(std::forward<T>(value), link);
+  StructElem<T>* link = headElem;
+  headElem = new StructElem<T>(std::forward<T>(value), link);
 }
 
 template <typename T>
-const T& stack_n<T>::head() const {
+const T& Sstack<T>::head() const {
   if (empty()) {
     throw std::out_of_range("Stack is empty!");
   } else {
@@ -92,9 +89,9 @@ const T& stack_n<T>::head() const {
 }
 
 template <typename T>
-T stack_n<T>::pop() {
+T Sstack<T>::pop() {
   if (headElem == nullptr) throw std::out_of_range("N = 0!");
-  Elem<T>* link = headElem;
+  StructElem<T>* link = headElem;
   headElem = headElem->previousElem;
   T elem = *link->elem;
   delete link;
@@ -102,9 +99,9 @@ T stack_n<T>::pop() {
 }
 
 template <typename T>
-size_t stack_n<T>::size() const {
+size_t Sstack<T>::size() const {
   size_t n = 0;
-  Elem<T>* link = headElem;
+  StructElem<T>* link = headElem;
   while (link != nullptr) {
     ++n;
     link = link->previousElem;
@@ -113,7 +110,7 @@ size_t stack_n<T>::size() const {
 }
 
 template <typename T>
-bool stack_n<T>::empty() const {
+bool Sstack<T>::empty() const {
   return headElem == nullptr;
 }
 

@@ -31,7 +31,7 @@ find_package(GTest CONFIG REQUIRED)
 
 add_library(${PROJECT_NAME} STATIC
   # enum your files and delete this comment
-        sources/Elem.cpp include/Elem.h sources/moveStackNew.cpp include/moveStackNew.hpp sources/stack_n.cpp include/stack_n.hpp)
+        sources/StructElem.cpp include/StructElem.h sources/FStack.cpp include/FStack.hpp sources/Sstack.cpp include/Sstack.hpp)
 
 add_executable(demo
   ${CMAKE_CURRENT_SOURCE_DIR}/demo/main.cpp
